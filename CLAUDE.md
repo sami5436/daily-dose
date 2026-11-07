@@ -5,6 +5,7 @@
 Personal hub of original daily games. Next.js 16 App Router + Tailwind v4, installable PWA, no backend. pnpm.
 
 ## Rules
+- Always ship a working tab favicon (`src/app/icon.png`, `src/app/apple-icon.png`) and a link preview (`src/app/opengraph-image.tsx`, `metadataBase`). Never set `metadata.icons` (it overrides the file icons). Verify `<link rel="icon">` and `og:image` in served HTML.
 - Original games only: our own names, words, puzzles and visuals. Never copy another game's name, art, word list or exact share format.
 - Daily content is date-seeded (`src/lib/daily.ts`) so everyone gets the same puzzle without a server.
 - All persistence goes through `src/lib/storage.ts` (safe localStorage wrapper). Never touch `localStorage` directly in games.
