@@ -57,7 +57,7 @@ export function buildHunchShare(guesses: readonly string[], answer: string, dayN
   return buildShare({
     game: "Hunch",
     dayNumber,
-    headline: `Hunch #${dayNumber} ${won ? guesses.length : "X"}/${MAX_GUESSES}`,
+    result: won ? `${guesses.length} ${guesses.length === 1 ? "try" : "tries"}` : "missed",
     lines: guesses.map((g) =>
       scoreGuess(g, answer)
         .map((m) => GLYPH[m])
