@@ -8,7 +8,7 @@ import { dayKey, dayNumber } from "@/lib/daily";
 import { getProgress, getResult, saveProgress, saveResult } from "@/lib/storage";
 import { MAX_ROUND_SCORE, ROUNDS, dailyColors, hsbToCss, scoreColors, verdict, type HSB } from "./color";
 import { sum, swatchShare } from "./share";
-import { parseProgress, type Progress } from "./progress";
+import { parseProgress, type Played, type Progress } from "./progress";
 import { Sliders } from "./Sliders";
 import styles from "./sliders.module.css";
 
