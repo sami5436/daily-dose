@@ -12,6 +12,7 @@ Personal hub of original daily games. Next.js 16 App Router + Tailwind v4, insta
 - Every game exports a share string built with `src/lib/share.ts`.
 - No em dashes anywhere (copy, comments, commits).
 - Before writing Next.js code, read the relevant guide in `node_modules/next/dist/docs/`.
+- Gotcha: the turbopack `*.css` rule in `next.config.ts` must exclude `*.module.css` (the `condition: { not: ... }` clause), or CSS modules silently become global and their class names are undefined.
 
 ## Commands
 - `pnpm dev` / `pnpm build` / `pnpm lint` / `pnpm test` (vitest)
