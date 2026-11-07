@@ -15,13 +15,30 @@ const figtree = Figtree({
   display: "swap",
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
+
+const description = "A few tiny games a day. New puzzles every morning.";
+
+// Icons come from the file conventions src/app/icon.png and src/app/apple-icon.png.
+// Do not set metadata.icons here: it overrides them and drops the tab favicon.
 export const metadata: Metadata = {
-  title: "Daily Dose",
-  description: "A few tiny games a day. New puzzles every morning.",
+  metadataBase: new URL(siteUrl),
+  title: { default: "Daily Dose", template: "%s · Daily Dose" },
+  description,
+  applicationName: "Daily Dose",
   appleWebApp: { capable: true, title: "Daily Dose", statusBarStyle: "default" },
-  icons: {
-    apple: "/icons/apple-touch-icon.png",
+  openGraph: {
+    type: "website",
+    siteName: "Daily Dose",
+    title: "Daily Dose",
+    description,
+    url: "/",
   },
+  twitter: { card: "summary_large_image", title: "Daily Dose", description },
 };
 
 export const viewport: Viewport = {
