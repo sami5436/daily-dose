@@ -24,7 +24,7 @@ Feels like a well-made board game box: chunky, physical, confident. Not a SaaS d
 
 - **Type:** display `Bricolage Grotesque` (700/800, tight tracking) for headings, game names, big numbers. Body `Figtree` (400/600). Tabular numerals for scores.
 - **Surfaces:** paper background `--paper #F4EFE6`, cards `--card #FFFDF8`, ink `--ink #1D1B16`, muted ink `--ink-2 #6B6457`, hairline `--line #E2DACB`.
-- **Chunk:** interactive cards and buttons get a 2px `--ink` border and a hard offset shadow `0 4px 0 var(--ink)`. On press: `translateY(3px)` and shadow `0 1px 0`. No blur shadows, no gradients, no glassmorphism.
+- **Chunk:** interactive cards and buttons get a 2px `--ink` border and a hard offset shadow `0 4px 0 var(--ink)`. On press: `translateY(3px)` and shadow `0 1px 0`. No blur shadows, no gradients, no glassmorphism. Functional gradients are allowed only for color-picker slider tracks.
 - **Radius:** card 20px, button 14px, tile 10px, pill 999px.
 - **Game colors (flat, one per game):** marigold `#F5B731`, tomato `#F2643D`, mint `#3FBF8F`, sky `#4DA3F0`, grape `#9B7BEA`, bubblegum `#F07FB0`. Text on them is `--ink`.
   - Hunch: marigold. Swatch: grape. Wayfarer (countries): sky. Deep Cut (trivia): tomato. Sprint (math): mint. Tangle (theme grid): bubblegum.
