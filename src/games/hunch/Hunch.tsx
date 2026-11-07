@@ -18,7 +18,6 @@ import {
   resultFor,
   scoreGuess,
 } from "./logic";
-import { HUNCH_CSS } from "./styles";
 import { VALID } from "./valid";
 
 type Progress = { guesses: string[] };
@@ -181,7 +180,6 @@ export function Hunch() {
 
   return (
     <GameShell gameId="hunch" rules={<Rules />}>
-      <style>{HUNCH_CSS}</style>
       <div className="flex flex-1 flex-col gap-5">
         {ready ? (
           <Board
@@ -200,7 +198,8 @@ export function Hunch() {
             gameId="hunch"
             headline={outcome === "won" ? "Nailed it" : "So close"}
             summary={result.summary}
-            score={result.score}
+            score={guesses.length}
+            scoreText={outcome === "won" ? undefined : "X"}
             maxScore={MAX_GUESSES}
             share={getResult("hunch", key)?.share ?? buildHunchShare(guesses, answer, dayNumber())}
           />
