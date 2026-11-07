@@ -36,12 +36,12 @@ export function Sliders({ value, onChange }: Props) {
   ];
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-4">
       {specs.map((s) => (
         <label key={s.key} className="block">
-          <span className="flex justify-between font-display text-sm font-bold">
+          <span className="mb-1 flex items-baseline justify-between font-display text-lg font-extrabold">
             {s.label}
-            <span className="tabular text-ink-2">{Math.round(value[s.key])}</span>
+            <span className="tabular text-2xl">{Math.round(value[s.key])}</span>
           </span>
           <input
             type="range"

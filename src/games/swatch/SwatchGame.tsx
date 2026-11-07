@@ -122,7 +122,7 @@ export function SwatchGame() {
           <ResultCard
             gameId="swatch"
             headline={total >= 40 ? "Eagle eyes" : total >= 25 ? "Nice palette" : "Good effort"}
-            summary={`${total.toFixed(1)} / ${ROUNDS * MAX_ROUND_SCORE}`}
+            summary={`Best round: ${Math.max(...scores).toFixed(1)} (${verdict(Math.max(...scores))})`}
             score={total}
             maxScore={ROUNDS * MAX_ROUND_SCORE}
             share={saved?.share ?? swatchShare(dayNumber(), scores)}
@@ -157,12 +157,12 @@ export function SwatchGame() {
       <GameShell gameId="swatch" rules={RULES}>
         {progressDots}
         <div className="grid grid-cols-2 gap-4">
-          <figure>
-            <Swatch color={target} label="Target color" className="h-40" />
+          <figure className="min-w-0">
+            <Swatch color={target} label="Target color" className="h-40 w-full" />
             <figcaption className="mt-3 text-center font-display text-sm font-bold">Target</figcaption>
           </figure>
-          <figure>
-            <Swatch color={last.guess} label="Your color" className="h-40" />
+          <figure className="min-w-0">
+            <Swatch color={last.guess} label="Your color" className="h-40 w-full" />
             <figcaption className="mt-3 text-center font-display text-sm font-bold">Yours</figcaption>
           </figure>
         </div>
