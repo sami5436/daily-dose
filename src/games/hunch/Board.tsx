@@ -1,8 +1,9 @@
+import styles from "./hunch.module.css";
 import { MAX_GUESSES, WORD_LENGTH, scoreGuess, type Mark } from "./logic";
 
 export const TILE_BG: Record<Mark, string> = {
-  hit: "#3FBF8F",
-  near: "#F5B731",
+  hit: "var(--color-hit)",
+  near: "var(--color-near)",
   miss: "var(--miss)",
 };
 
@@ -22,14 +23,15 @@ export function Tile({ letter, mark, index, flip, bounce, size = "board" }: Tile
   const filled = letter !== "";
   const textColor = mark === "miss" ? "text-ink" : mark ? "text-[#1d1b16]" : "text-ink";
   const border = mark || filled ? "border-ink" : "border-line";
-  const anim = flip ? "hunch-flip" : bounce ? "hunch-bounce" : filled && !mark ? "hunch-pop" : "";
+  const anim = flip ? styles.flip : bounce ? styles.bounce : filled && !mark ? styles.pop : "";
+  const cue = mark === "hit" ? styles.hit : mark === "near" ? styles.near : "";
   return (
     <div
       role="img"
       aria-label={letter ? `${letter}, ${mark ? LABEL[mark] : "typed"}` : "empty"}
-      className={`${anim} ${border} ${textColor} ${
-        size === "board" ? "text-[clamp(1.5rem,9vw,2.25rem)]" : "text-xl"
-      } flex aspect-square select-none items-center justify-center rounded-tile border-2 font-display font-extrabold`}
+      className={`${anim} ${cue} ${border} ${textColor} ${
+        size === "board" ? "text-[clamp(1.5rem,9vw,2.25rem)] md:text-4xl" : "text-xl"
+      } relative flex aspect-square select-none items-center justify-center rounded-tile border-2 font-display font-extrabold`}
       style={{
         background: mark ? TILE_BG[mark] : filled ? "var(--card)" : "transparent",
         // Flip tiles start as plain card color, then take their mark color at the halfway point.
@@ -55,8 +57,7 @@ type BoardProps = {
 export function Board({ guesses, current, answer, revealRow, shakeRow, bounceRow }: BoardProps) {
   return (
     <div
-      className="mx-auto grid w-full gap-[6px]"
-      style={{ maxWidth: "min(330px, max(220px, calc((100svh - 360px) * 5 / 6)))" }}
+      className={`${styles.board} mx-auto grid w-full gap-[6px]`}
       aria-label="Guess board"
     >
       {Array.from({ length: MAX_GUESSES }, (_, r) => {
@@ -66,7 +67,7 @@ export function Board({ guesses, current, answer, revealRow, shakeRow, bounceRow
         return (
           <div
             key={r}
-            className={`grid grid-cols-5 gap-[6px] ${shakeRow === r ? "hunch-shake" : ""}`}
+            className={`grid grid-cols-5 gap-[6px] ${shakeRow === r ? styles.shake : ""}`}
           >
             {Array.from({ length: WORD_LENGTH }, (_, c) => (
               <Tile

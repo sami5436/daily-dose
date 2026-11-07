@@ -1,0 +1,45 @@
+/* Hunch animations. Reduced motion turns every one of them off. */
+
+@keyframes flip {
+  0% { transform: rotateX(0); background: var(--card); }
+  49% { transform: rotateX(90deg); background: var(--card); }
+  50% { transform: rotateX(90deg); background: var(--tile-bg); }
+  100% { transform: rotateX(0); background: var(--tile-bg); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-14px); }
+  70% { transform: translateY(2px); }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+@keyframes pop {
+  0% { transform: scale(0.9); }
+  60% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+.flip { animation: flip 500ms ease-out backwards; }
+.bounce { animation: bounce 600ms cubic-bezier(0.34, 1.56, 0.64, 1) backwards; }
+.shake { animation: shake 360ms ease-out; }
+.pop { animation: pop 140ms ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .flip, .bounce, .shake, .pop { animation: none !important; }
+}
+.hit::after, .near::after {
+  content: "";
+  position: absolute;
+  background: var(--ink);
+  pointer-events: none;
+}
+.hit::after { left: 25%; right: 25%; bottom: 7px; height: 3px; border-radius: 2px; }
+.near::after { top: 6px; right: 6px; width: 6px; height: 6px; border-radius: 50%; }
+.hit::after, .near::after { opacity: 0.85; }
+.board { max-width: min(330px, max(220px, calc((100svh - 360px) * 5 / 6))); }
+@media (min-width: 768px) {
+  .board { max-width: min(350px, max(220px, calc((100svh - 300px) * 5 / 6))); }
+}
