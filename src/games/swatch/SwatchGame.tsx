@@ -8,11 +8,10 @@ import { dayKey, dayNumber } from "@/lib/daily";
 import { getProgress, getResult, saveProgress, saveResult } from "@/lib/storage";
 import { MAX_ROUND_SCORE, ROUNDS, dailyColors, hsbToCss, scoreColors, verdict, type HSB } from "./color";
 import { sum, swatchShare } from "./share";
+import { parseProgress, type Progress } from "./progress";
 import { Sliders } from "./Sliders";
 import styles from "./sliders.module.css";
 
-type Played = { guess: HSB; score: number };
-type Progress = { rounds: Played[] };
 type Phase = "memorize" | "build" | "reveal";
 
 const SHOW_SECONDS = 3;
@@ -51,7 +50,11 @@ export function SwatchGame() {
   useEffect(() => {
     const load = () => {
       const k = dayKey();
-      setRounds(getProgress<Progress>("swatch", k)?.rounds ?? []);
+      const saved = parseProgress(getProgress<unknown>("swatch", k));
+      const restored = saved?.rounds ?? [];
+      setRounds(restored);
+      // The color for this round was already shown before the reload: no second look.
+      if (saved && saved.shown === restored.length && restored.length < ROUNDS) setPhase("build");
       setKey(k);
     };
     load();
@@ -68,12 +71,18 @@ export function SwatchGame() {
     };
   }, [key, finished, phase, index]);
 
+  // Remember that this round's color has been shown, so reloading cannot replay it.
+  useEffect(() => {
+    if (!key || finished || phase !== "memorize") return;
+    saveProgress<Progress>("swatch", key, { rounds, shown: index });
+  }, [key, finished, phase, index, rounds]);
+
   const lockIn = useCallback(() => {
     if (!key) return;
     const score = scoreColors(colors[index], guess);
     const next = [...rounds, { guess, score }];
     setRounds(next);
-    saveProgress<Progress>("swatch", key, { rounds: next });
+    saveProgress<Progress>("swatch", key, { rounds: next, shown: index });
     setPhase("reveal");
     if (next.length === ROUNDS) {
       const scores = next.map((r) => r.score);
