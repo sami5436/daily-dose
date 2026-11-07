@@ -42,12 +42,13 @@ describe("outcome and result", () => {
   });
   it("builds share text with our glyphs", () => {
     const s = buildHunchShare(["PLANT", "ALARM"], "ALARM", 4);
-    expect(s).toContain("Hunch #4 2/6");
+    expect(s).toContain("Hunch #4 · 2 tries");
     expect(s).toContain("⚫🟢🟢⚫⚫");
     expect(s).toContain("🟢🟢🟢🟢🟢");
   });
-  it("shows X on a loss", () => {
-    expect(buildHunchShare(Array(6).fill("AAAAA"), "CRANE", 1)).toContain("Hunch #1 X/6");
+  it("says missed on a loss and 1 try on a first-guess win", () => {
+    expect(buildHunchShare(Array(6).fill("AAAAA"), "CRANE", 1)).toContain("Hunch #1 · missed");
+    expect(buildHunchShare(["CRANE"], "CRANE", 2)).toContain("Hunch #2 · 1 try\n");
   });
 });
 

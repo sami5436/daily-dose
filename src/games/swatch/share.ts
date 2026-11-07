@@ -18,7 +18,7 @@ export function swatchShare(dayNumber: number, scores: number[]): string {
   return buildShare({
     game: "Swatch",
     dayNumber,
-    headline: `Swatch #${dayNumber} ${total}/${ROUNDS * MAX_ROUND_SCORE}`,
+    result: `${total}/${ROUNDS * MAX_ROUND_SCORE}`,
     lines: scores.map((s, i) => `${i + 1}. ${scoreBar(s)} ${s.toFixed(1)}`),
   });
 }
