@@ -202,7 +202,7 @@ export function Hunch() {
             summary={result.summary}
             score={result.score}
             maxScore={MAX_GUESSES}
-            share={buildHunchShare(guesses, answer, dayNumber())}
+            share={getResult("hunch", key)?.share ?? buildHunchShare(guesses, answer, dayNumber())}
           />
         ) : (
           <Keyboard states={states} disabled={!ready || locked} onKey={onKey} />
